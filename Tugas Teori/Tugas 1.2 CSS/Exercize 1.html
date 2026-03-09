@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 1 - Service Grid</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-custom {
+            background-color: #0d6efd;
+            padding: 0;
+        }
+        
+        .navbar-custom .nav-link {
+            color: white !important;
+            padding: 15px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+        }
+        
+        .navbar-custom .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .service-box {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .service-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-box i {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+        
+        .service-box h3 {
+            font-size: 20px;
+            margin: 0;
+        }
+        
+        .bg-analytic { background-color: #28a745; }
+        .bg-creative { background-color: #fd7e14; }
+        .bg-development { background-color: #dc3545; }
+        .bg-marketing { background-color: #17a2b8; }
+        .bg-media { background-color: #ffc107; color: #333 !important; }
+        .bg-optimization { background-color: #28a745; }
+        
+        .container-main {
+            max-width: 600px;
+            margin-top: 40px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand navbar-custom">
+        <div class="container-fluid justify-content-center">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Strategy</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Solusi</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Marketing</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Workshop</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Our Work</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Produk</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Partner</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Inspirasi</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container container-main">
+        <div class="row">
+            <div class="col-6">
+                <div class="service-box bg-analytic">
+                    <i class="bi bi-pie-chart-fill"></i>
+                    <h3>Analytic</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="service-box bg-creative">
+                    <i class="bi bi-thermometer-half"></i>
+                    <h3>Creative</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="service-box bg-development">
+                    <i class="bi bi-display"></i>
+                    <h3>Development</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="service-box bg-marketing">
+                    <i class="bi bi-gear-fill"></i>
+                    <h3>Marketing</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="service-box bg-media">
+                    <i class="bi bi-play-circle-fill"></i>
+                    <h3>Media</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="service-box bg-optimization">
+                    <i class="bi bi-rocket-fill"></i>
+                    <h3>Optimization</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
