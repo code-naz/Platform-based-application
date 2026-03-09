@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2 - Interactive Layout (Vanilla JS)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .control-panel {
+            background: #f7fafc;
+            padding: 25px;
+            border-bottom: 3px solid #e2e8f0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-align {
+            background: #4299e1;
+            color: white;
+        }
+
+        .btn-align:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
+        }
+
+        .btn-color {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-color:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+        }
+
+        .btn-reset {
+            background: #ed8936;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #dd6b20;
+        }
+
+        .content-area {
+            padding: 40px;
+        }
+
+        .feature-box {
+            background: #9f7aea;
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-box:hover::before {
+            opacity: 1;
+        }
+
+        .feature-box h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .feature-box p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .feature-box.original {
+            background: #9f7aea;
+        }
+
+        .feature-box.alternate {
+            background: #f56565;
+        }
+
+        .text-content {
+            background: #edf2f7;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #4299e1;
+        }
+
+        .text-content h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .text-content p {
+            color: #4a5568;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            transition: text-align 0.3s ease;
+        }
+
+        .align-left { text-align: left; }
+        .align-center { text-align: center; }
+        .align-right { text-align: right; }
+
+        .status-bar {
+            background: #2d3748;
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #48bb78;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .state-display {
+            background: #1a202c;
+            color: #68d391;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Interactive Layout</h1>
+            <p>JavaScript DOM Manipulation Demo</p>
+        </div>
+
+        <div class="control-panel">
+            <button class="btn btn-align" onclick="toggleAlignment()">
+                🔄 Toggle Alignment
+            </button>
+            <button class="btn btn-color" onclick="toggleBoxColor()">
+                🎨 Toggle Box Color
+            </button>
+            <button class="btn btn-reset" onclick="resetAll()">
+                ↩️ Reset All
+            </button>
+        </div>
+
+        <div class="content-area">
+            <div id="featureBox" class="feature-box original">
+                <h2>✨ Featured Content</h2>
+                <p>This box demonstrates color toggling. Click the "Toggle Box Color" button to change my background color between purple and red!</p>
+            </div>
+
+            <div id="textContent" class="text-content align-left">
+                <h3>📄 Dynamic Text Alignment</h3>
+                <p id="targetText">
+                    This text demonstrates alignment toggling. Click the "Toggle Alignment" button to change how this text is positioned. 
+                    The alignment will cycle through: Left → Center → Right → Left.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                </p>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>System Active</span>
+            </div>
+            <div class="state-display" id="stateDisplay">
+                Alignment: left | Box Color: original
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const state = {
+            alignmentIndex: 0,  
+            boxColorOriginal: true
+        };
+
+        const alignments = [
+            { class: 'align-left', name: 'left', icon: '⬅️' },
+            { class: 'align-center', name: 'center', icon: '⏺️' },
+            { class: 'align-right', name: 'right', icon: '➡️' }
+        ];
+
+        const elements = {
+            textContent: document.getElementById('textContent'),
+            featureBox: document.getElementById('featureBox'),
+            stateDisplay: document.getElementById('stateDisplay'),
+            targetText: document.getElementById('targetText')
+        };
+
+        function toggleAlignment() {
+            const currentAlign = alignments[state.alignmentIndex];
+            elements.textContent.classList.remove(currentAlign.class);
+            state.alignmentIndex = (state.alignmentIndex + 1) % alignments.length;
+            const newAlign = alignments[state.alignmentIndex];
+            elements.textContent.classList.add(newAlign.class);
+            
+            elements.targetText.style.backgroundColor = '#bee3f8';
+            setTimeout(() => {
+                elements.targetText.style.backgroundColor = 'transparent';
+            }, 300);
+            
+            updateStateDisplay();
+            console.log(`Alignment changed to: ${newAlign.name}`);
+        }
+
+        function toggleBoxColor() {
+            const box = elements.featureBox;
+            
+            if (state.boxColorOriginal) {
+                box.classList.remove('original');
+                box.classList.add('alternate');
+                box.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    box.style.transform = 'scale(1)';
+                }, 200);
+                
+            } else {
+                box.classList.remove('alternate');
+                box.classList.add('original');
+                box.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    box.style.transform = 'scale(1)';
+                }, 200);
+            }
+            
+            state.boxColorOriginal = !state.boxColorOriginal;
+            updateStateDisplay();
+            console.log(`Box color changed to: ${state.boxColorOriginal ? 'original' : 'alternate'}`);
+        }
+
+        
+        function resetAll() {
+            elements.textContent.classList.remove(
+                alignments[state.alignmentIndex].class
+            );
+            state.alignmentIndex = 0;
+            elements.textContent.classList.add(alignments[0].class);
+            
+            elements.featureBox.classList.remove('alternate');
+            elements.featureBox.classList.add('original');
+            state.boxColorOriginal = true;
+            
+            elements.textContent.style.transition = 'none';
+            elements.textContent.style.opacity = '0.5';
+            setTimeout(() => {
+                elements.textContent.style.transition = 'all 0.3s';
+                elements.textContent.style.opacity = '1';
+            }, 150);
+            
+            updateStateDisplay();
+            console.log('All settings reset to default');
+        }
+        
+        function updateStateDisplay() {
+            const alignName = alignments[state.alignmentIndex].name;
+            const colorName = state.boxColorOriginal ? 'original' : 'alternate';
+            
+            elements.stateDisplay.textContent = 
+                `Alignment: ${alignName} | Box Color: ${colorName}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Interactive Layout Loaded');
+            console.log('Available functions:');
+            console.log('  - toggleAlignment(): Cycle text alignment');
+            console.log('  - toggleBoxColor(): Toggle feature box color');
+            console.log('  - resetAll(): Reset to default state');
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === '1') toggleAlignment();
+                if (e.key === '2') toggleBoxColor();
+                if (e.key === '0') resetAll();
+            });
+        });
+
+        window.toggleAlignment = toggleAlignment;
+        window.toggleBoxColor = toggleBoxColor;
+        window.resetAll = resetAll;
+    </script>
+
+</body>
+</html>
