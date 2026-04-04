@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX Implementation with jQuery</title>
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        #demo {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>The jQuery AJAX</h2>
+    <p id="demo">Biarkan AJAX mengubah teks ini.</p>
+    <button type="button" id="changeBtn">Change Content</button>
+    
+    <script>
+        $(document).ready(function() {
+            $('#changeBtn').click(function() {
+                $.ajax({
+                    // The URL to be accessed 
+                    url: "ajax_info.txt",
+                    
+                    // The HTTP method to be used (POST/GET)
+                    type: "GET",
+                    
+                    // Data to be sent to the server
+                    data: {
+                        id: 123,
+                        name: "John"
+                    },
+                    
+                    // The data type expected from the server
+                    dataType: "html",
+                    
+                    // Timeout period in milliseconds (5s)
+                    timeout: 5000,
+                    
+                    // Callback when the request is successful
+                    success: function(result) {
+                        $('#demo').html(result);
+                        var currentTime = new Date().toLocaleTimeString();
+                        $('#time-placeholder').html(currentTime);
+                    },
+                    
+                    // Callback when the request fails
+                    error: function(xhr, status, error) {
+                        $('#demo').html("Error: " + error);
+                    },
+                    
+                    // Callback that is always executed after the request is finished
+                    complete: function(xhr, status) {
+                        console.log("Request completed with status: " + status);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

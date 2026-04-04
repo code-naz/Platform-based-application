@@ -1,0 +1,5 @@
+<h3>Terima kasih!</h3>
+<p>Data berhasil dimuat melalui AJAX.</p>
+<p>NIM: 2311102044</p>
+<p>Nama: Muhamad Nasrulloh</p>
+<p>Waktu: <span id="time-placeholder"></span></p>
